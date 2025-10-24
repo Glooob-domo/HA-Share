@@ -1,7 +1,8 @@
 ######### ENGLISH VERSION BELLOW ########
 
 # Code à noter dans "configuration.yaml"
-# cover: !include covers.yaml
+
+cover: !include covers.yaml
 
 # Code à noter au début de "covers.yaml"
 
