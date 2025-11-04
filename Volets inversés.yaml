@@ -6,7 +6,7 @@ cover: !include covers.yaml
 
 # Code à noter au début de "covers.yaml"
 
-platform: template
+- platform: template
   covers:
 
 # Code à noter autant de fois que vous avez d'interrupteur dans "covers.yaml"
@@ -59,7 +59,7 @@ cover: !include covers.yaml
 
 # Code to be noted at the beginning of "covers.yaml"
 
-platform: template
+- platform: template
   covers:
 
 # Code to be noted as many times as you have switches in "covers.yaml" 
