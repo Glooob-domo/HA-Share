@@ -4,14 +4,14 @@ triggers:
   - trigger: event
     event_type: telegram_callback
     event_data:
-      command: /oui_eteindrelumiere ###### Nom de votre variable "OUI"
+      command: /oui_eteindrelumiere                                                      ###### A MODIFIER ! Nom de Votre variable "OUI" inscrite dans l'autre fichier
 conditions: []
 actions:
   - action: telegram_bot.answer_callback_query
     metadata: {}
     data:
       show_alert: false
-      message: Prise en compte de la demande... ###### Texte de confirmation de prise en compte 
+      message: Prise en compte de la demande...                                          ###### Texte de confirmation de prise en compte 
       callback_query_id: "{{ trigger.event.data.id }}"
   - action: light.turn_off
     metadata: {}
@@ -23,5 +23,5 @@ actions:
     data:
       message: "La lumière à bien été éteinte par : {{ trigger.event.data.from_first }}" ####### Nom de la personne du groupe qui a actionné le bouton
       target:
-        - "-123456789" ####### Votre ID ou celui de votre Groupe
+        - "-123456789"                                                                   ####### A MODIFIER ! Votre ID ou celui de votre Groupe
 mode: single
