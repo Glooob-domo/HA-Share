@@ -1,0 +1,26 @@
+alias: Notification - Globale - Lumière - Telegram (Demande)
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - alarm_control_panel.somfy_home_alarm_maison
+    from:
+      - disarmed
+    to:
+      - armed_away
+      - armed_night
+conditions:
+  - condition: state
+    entity_id: light.lumieres
+    state:
+      - "on"
+actions:
+  - action: telegram_bot.send_message
+    metadata: {}
+    data:
+      message: "Une lumière est restée allumée. Dois je l'éteindre ? "         #### Notification reçu sur Telegram 
+      inline_keyboard:
+        - Oui :/oui_eteindrelumiere, Non :/non_eteindrelumiere                 #### Modifiez les variables, et n'oubliez pas de les reporter dans l'autre automatisation ! 
+      target:
+        - "-123456789"                                                         #### A MODIFIER ! Votre ID ou celui de votre Groupe
+mode: single
