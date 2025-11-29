@@ -1,0 +1,27 @@
+alias: Notification - Globale - Lumière - Telegram (Action)
+description: ""
+triggers:
+  - trigger: event
+    event_type: telegram_callback
+    event_data:
+      command: /oui_eteindrelumiere ###### Nom de votre variable "OUI"
+conditions: []
+actions:
+  - action: telegram_bot.answer_callback_query
+    metadata: {}
+    data:
+      show_alert: false
+      message: Prise en compte de la demande... ###### Texte de confirmation de prise en compte 
+      callback_query_id: "{{ trigger.event.data.id }}"
+  - action: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.lumieres
+  - action: telegram_bot.send_message
+    metadata: {}
+    data:
+      message: "La lumière à bien été éteinte par : {{ trigger.event.data.from_first }}" ####### Nom de la personne du groupe qui a actionné le bouton
+      target:
+        - "-123456789" ####### Votre ID ou celui de votre Groupe
+mode: single
