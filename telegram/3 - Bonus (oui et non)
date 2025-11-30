@@ -1,7 +1,9 @@
-##### BONUS
-##### dans cet exemple, si le bouton non est activé, le message est édité et le texte
-##### est remplacé par : Demande d'extinction annulée par nom_de_l'utilisateur
-#####
+##### ------------------------ BONUS ---------------------------
+##### 
+##### dans cet exemple, si le bouton "Oui" ou "Non" est activé, le message est
+##### édité et le texte est remplacé par un message de confirmation
+##### 
+##### ------------------------ BONUS ---------------------------
 
 
 
@@ -21,30 +23,30 @@ triggers:
 conditions: []
 actions:
   - choose:
-      - conditions:                                                                               #### Condition si "Oui" identique au fichier 2
+      - conditions:                                                                               #### Condition si "Oui"
           - condition: trigger
             id:
               - oui
         sequence:
-          - action: telegram_bot.answer_callback_query
+          - action: telegram_bot.answer_callback_query                                            #### Pour éviter l'erreur
             metadata: {}
             data:
               show_alert: false
               message: Prise en compte de la demande...
               callback_query_id: "{{ trigger.event.data.id }}"
-          - action: light.turn_off
+          - action: light.turn_off                                                                #### Action d'extinction des lumières
             metadata: {}
             data: {}
             target:
               entity_id: light.lumieres
-          - action: telegram_bot.send_message
+          - action: telegram_bot.edit_message                                                    #### Edition du message et remplacement par un autre texte.
             metadata: {}
             data:
+              message_id: "{{ trigger.event.data.message.message_id }}"
+              chat_id: "{{ trigger.event.data.chat_id }}"
               message: >-
                 ✅ La lumière à bien été eteinte par : {{
                 trigger.event.data.from_first }}
-              target:
-                - "-123456789"                                                                   #### A MODIFIER ! Votre ID ou celui de votre Groupe
       - conditions:                                                                              #### Condition si "Non"
           - condition: trigger
             id:
