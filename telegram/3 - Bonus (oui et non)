@@ -1,0 +1,67 @@
+##### BONUS
+##### dans cet exemple, si le bouton non est activé, le message est édité et le texte
+##### est remplacé par :Demande d'extinction annulée par nom_de_l'utilisateur
+#####
+
+
+
+alias: Notification - Globale - Lumière - Telegram (Action)
+description: ""
+triggers:
+  - trigger: event
+    event_type: telegram_callback
+    event_data:
+      command: /oui_eteindrelumiere                                                               #### Variable "Oui" (A modifier si besoin)
+    id: oui                                                                                       #### ID n°1 pour utiliser deux choix d'actions
+  - trigger: event
+    event_type: telegram_callback
+    event_data:
+      command: /non_eteindrelumiere                                                               #### Variable "Non" (A modifier si besoin)
+    id: non                                                                                       #### ID n°2 pour utiliser deux choix d'actions
+conditions: []
+actions:
+  - choose:
+      - conditions:                                                                               #### Condition si "Oui" identique au fichier 2
+          - condition: trigger
+            id:
+              - oui
+        sequence:
+          - action: telegram_bot.answer_callback_query
+            metadata: {}
+            data:
+              show_alert: false
+              message: Prise en compte de la demande...
+              callback_query_id: "{{ trigger.event.data.id }}"
+          - action: light.turn_off
+            metadata: {}
+            data: {}
+            target:
+              entity_id: light.lumieres
+          - action: telegram_bot.send_message
+            metadata: {}
+            data:
+              message: >-
+                ✅ La lumière à bien été eteinte par : {{
+                trigger.event.data.from_first }}
+              target:
+                - "-123456789"
+      - conditions:                                                                              #### Condition si "Non"
+          - condition: trigger
+            id:
+              - non
+        sequence:
+          - action: telegram_bot.answer_callback_query                                           #### Pour éviter l'erreur
+            metadata: {}
+            data:
+              show_alert: false
+              message: Prise en compte de la demande...
+              callback_query_id: "{{ trigger.event.data.id }}"
+          - action: telegram_bot.edit_message                                                    #### Edition du message et remplacement par un autre texte.
+            metadata: {}
+            data:
+              message_id: "{{ trigger.event.data.message.message_id }}"
+              chat_id: "{{ trigger.event.data.chat_id }}"
+              message: >-
+                ✅ Demande d'extinction annulée par {{
+                trigger.event.data.from_first }}
+mode: single
