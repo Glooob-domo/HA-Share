@@ -44,7 +44,7 @@ actions:
                 ✅ La lumière à bien été eteinte par : {{
                 trigger.event.data.from_first }}
               target:
-                - "-123456789"
+                - "-123456789"                                                                   #### A MODIFIER ! Votre ID ou celui de votre Groupe
       - conditions:                                                                              #### Condition si "Non"
           - condition: trigger
             id:
@@ -62,6 +62,6 @@ actions:
               message_id: "{{ trigger.event.data.message.message_id }}"
               chat_id: "{{ trigger.event.data.chat_id }}"
               message: >-
-                ✅ Demande d'extinction annulée par {{
+                🛑 Demande d'extinction annulée par {{
                 trigger.event.data.from_first }}
 mode: single
