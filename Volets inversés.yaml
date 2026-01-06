@@ -1,53 +1,53 @@
 ######### ENGLISH VERSION BELLOW ########
 
-# Code à noter dans "configuration.yaml"
+##########################################
+# Code à noter dans "configuration.yaml" #
+##########################################
 
-cover: !include covers.yaml
+homeassistant:
+  packages: !include_dir_named packages
 
-# Code à noter au début de "covers.yaml"
+##########################################
+# Code à noter au début de "covers.yaml" #
+##########################################
 
-- platform: template
-  covers:
+template:
+  - cover:
 
 # Code à noter autant de fois que vous avez d'interrupteur dans "covers.yaml"
 
-    votre_volet_corrige:
-      friendly_name: "Votre Volet (corrigé)"
-      device_class: shutter
-      position_template: >
-        {% set raw = state_attr('cover.votre_ancien_volet', 'current_position') | int(0) %}
-        {% set pos = [ [ raw, 0 ] | max, 100 ] | min %}
-        {{ 100 - pos }}
-      value_template: >
-        {% set raw = state_attr('cover.votre_ancien_volet', 'current_position') | int(0) %}
-        {% set pos = [ [ raw, 0 ] | max, 100 ] | min %}
-        {% set inv = 100 - pos %}
-        {% if inv >= 98 %}
-          open
-        {% elif inv <= 2 %}
-          closed
-        {% else %}
-          open
-        {% endif %}
-      open_cover:
-        service: cover.open_cover
-        data:
-          entity_id: cover.votre_ancien_volet
-      close_cover:
-        service: cover.close_cover
-        data:
-          entity_id: cover.votre_ancien_volet
-      stop_cover:
-        service: cover.stop_cover
-        data:
-          entity_id: cover.votre_ancien_volet
-      set_cover_position:
-        service: cover.set_cover_position
-        data:
-          entity_id: cover.votre_ancien_volet
-          position: "{{ 100 - (position | int(0)) }}"
-      availability_template: >
-        {{ not is_state('cover.votre_ancien_volet', 'unavailable') }}
+      - name: "Nom De Votre Volet"
+        device_class: shutter
+        unique_id: nom_de_votre_volet_corrige
+        availability: >
+          {{ states('cover.ancien_nom_volet') not in ['unavailable', 'unknown'] }}
+        position: >
+          {% set raw = state_attr('cover.ancien_nom_volet', 'current_position') | int(default=0) %}
+          {% set pos_inv = 100 - raw %}
+          {% if pos_inv <= 2 %} 0
+          {% elif pos_inv >= 98 %} 100
+          {% else %} {{ pos_inv }}
+          {% endif %}
+
+        # Actions
+        open_cover:
+          action: cover.open_cover
+          target:
+            entity_id: cover.ancien_nom_volet
+        close_cover:
+          action: cover.close_cover
+          target:
+            entity_id: cover.ancien_nom_volet
+        stop_cover:
+          action: cover.stop_cover
+          target:
+            entity_id: cover.ancien_nom_volet
+        set_cover_position:
+          action: cover.set_cover_position
+          target:
+            entity_id: cover.ancien_nom_volet
+          data:
+            position: "{{ 100 - position }}"
 
 
 
@@ -55,50 +55,45 @@ cover: !include covers.yaml
 
 # Code to be noted in "configuration.yaml"
 
-cover: !include covers.yaml
+homeassistant:
+  packages: !include_dir_named packages
 
 # Code to be noted at the beginning of "covers.yaml"
 
-- platform: template
-  covers:
+template:
+  - cover:
 
 # Code to be noted as many times as you have switches in "covers.yaml" 
 
-   your_shutter_corrected:
-      friendly_name: "Your Shutter (corrected)"
-      device_class: shutter
-      position_template: >
-        {% set raw = state_attr('cover.your_old_shutter', 'current_position') | int(0) %}
-        {% set pos = [ [ raw, 0 ] | max, 100 ] | min %}
-        {{ 100 - pos }}
-      value_template: >
-        {% set raw = state_attr('cover.your_old_shutter', 'current_position') | int(0) %}
-        {% set pos = [ [ raw, 0 ] | max, 100 ] | min %}
-        {% set inv = 100 - pos %}
-        {% if inv >= 98 %}
-          open
-        {% elif inv <= 2 %}
-          closed
-        {% else %}
-          open
-        {% endif %}
-      open_cover:
-        service: cover.open_cover
-        data:
-          entity_id: cover.your_old_shutter
-      close_cover:
-        service: cover.close_cover
-        data:
-          entity_id: cover.your_old_shutter
-      stop_cover:
-        service: cover.stop_cover
-        data:
-          entity_id: cover.your_old_shutter
-      set_cover_position:
-        service: cover.set_cover_position
-        data:
-          entity_id: cover.your_old_shutter
-          position: "{{ 100 - (position | int(0)) }}"
-      availability_template: >
-        {{ not is_state('cover.your_old_shutter', 'unavailable') }}
+      - name: "Name of your Shutter"
+        device_class: shutter
+        unique_id: your_shutter_corrected
+        availability: >
+          {{ states('cover.your_old_shutter') not in ['unavailable', 'unknown'] }}
+        position: >
+          {% set raw = state_attr('cover.your_old_shutter', 'current_position') | int(default=0) %}
+          {% set pos_inv = 100 - raw %}
+          {% if pos_inv <= 2 %} 0
+          {% elif pos_inv >= 98 %} 100
+          {% else %} {{ pos_inv }}
+          {% endif %}
 
+        # Actions
+        open_cover:
+          action: cover.open_cover
+          target:
+            entity_id: cover.your_old_shutter
+        close_cover:
+          action: cover.close_cover
+          target:
+            entity_id: cover.your_old_shutter
+        stop_cover:
+          action: cover.stop_cover
+          target:
+            entity_id: cover.your_old_shutter
+        set_cover_position:
+          action: cover.set_cover_position
+          target:
+            entity_id: cover.your_old_shutter
+          data:
+            position: "{{ 100 - position }}"
