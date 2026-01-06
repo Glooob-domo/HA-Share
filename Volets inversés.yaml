@@ -29,7 +29,7 @@ template:
           {% else %} {{ pos_inv }}
           {% endif %}
 
-        # Actions
+        # Actions (Si les boutons sont inversés, inversez open_cover et close_cover)
         open_cover:
           action: cover.open_cover
           target:
