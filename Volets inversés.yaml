@@ -1,5 +1,10 @@
 ######### ENGLISH VERSION BELLOW ########
 
+Info : 
+name : Le nom qui sera affiché dans Home Assistant, par exemple : Volet Bureau
+unique_id : Le nouveau nom de votre entité, par exemple : volet_bureau_corrige
+ancien_nom_volet : Le nom de votre ancienne entité, par exemple : volet_bureau (A verifier dans les paramètres)
+
 ##########################################
 # Code à noter dans "configuration.yaml" #
 ##########################################
@@ -78,7 +83,7 @@ template:
           {% else %} {{ pos_inv }}
           {% endif %}
 
-        # Actions
+        # Actions (If the buttons are reversed, invert open_cover and close_cover)
         open_cover:
           action: cover.open_cover
           target:
