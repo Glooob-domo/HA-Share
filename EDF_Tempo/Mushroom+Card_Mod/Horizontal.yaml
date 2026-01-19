@@ -18,7 +18,6 @@ cards:
         card_mod:
           style: |
             ha-card {
-              border: none;
               {% set color = states('sensor.rte_tempo_couleur_actuelle') %}
               {% if color == 'Rouge' %}
                 background: linear-gradient(135deg, #ff5f6d 0%, #b91d1d 100%);
@@ -28,8 +27,7 @@ cards:
               {% else %}
                 background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);
               {% endif %}
-              box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-              border-radius: 15px;
+              border-radius: 12px;
               height: 140px;
             }
             ha-state-icon, .primary, .secondary {
@@ -53,7 +51,6 @@ cards:
         card_mod:
           style: |
             ha-card {
-              border: none;
               {% set color = states('sensor.rte_tempo_prochaine_couleur') %}
               {% if color == 'Rouge' %}
                 background: linear-gradient(135deg, #ff5f6d 0%, #b91d1d 100%);
@@ -65,8 +62,7 @@ cards:
               {% else %}
                 background: var(--card-background-color);
               {% endif %}
-              box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-              border-radius: 15px;
+              border-radius: 12px;
               height: 140px;
             }
             ha-state-icon, .primary, .secondary {
