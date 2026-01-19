@@ -1,0 +1,75 @@
+type: vertical-stack
+cards:
+  - type: conditional
+    conditions:
+      - entity: sensor.rte_tempo_couleur_actuelle
+        state: Bleu
+    card:
+      type: tile
+      entity: sensor.rte_tempo_couleur_actuelle
+      name: "Aujourd'hui : BLEU"
+      color: blue
+      icon: mdi:lightning-bolt
+      vertical: false
+  - type: conditional
+    conditions:
+      - entity: sensor.rte_tempo_couleur_actuelle
+        state: Blanc
+    card:
+      type: tile
+      entity: sensor.rte_tempo_couleur_actuelle
+      name: "Aujourd'hui : BLANC"
+      color: grey
+      icon: mdi:lightning-bolt
+  - type: conditional
+    conditions:
+      - entity: sensor.rte_tempo_couleur_actuelle
+        state: Rouge
+    card:
+      type: tile
+      entity: sensor.rte_tempo_couleur_actuelle
+      name: "Aujourd'hui : ROUGE"
+      color: red
+      icon: mdi:lightning-bolt
+  - type: conditional
+    conditions:
+      - entity: sensor.rte_tempo_prochaine_couleur
+        state: Bleu
+    card:
+      type: tile
+      entity: sensor.rte_tempo_prochaine_couleur
+      name: "Demain : BLEU"
+      color: blue
+  - type: conditional
+    conditions:
+      - entity: sensor.rte_tempo_prochaine_couleur
+        state: Blanc
+    card:
+      type: tile
+      entity: sensor.rte_tempo_prochaine_couleur
+      name: "Demain : BLANC"
+      color: grey
+  - type: conditional
+    conditions:
+      - entity: sensor.rte_tempo_prochaine_couleur
+        state: Rouge
+    card:
+      type: tile
+      entity: sensor.rte_tempo_prochaine_couleur
+      name: "Demain : ROUGE"
+      color: red
+  - type: entities
+    title: Jours restants
+    entities:
+      - entity: sensor.tarif_actuel_tempo_6kva_ttc
+        name: Prix actuel au kWh
+        icon: mdi:currency-eur
+      - entity: sensor.rte_tempo_cycle_jours_restants_bleu
+        name: Jours Bleus
+        icon: mdi:circle
+      - entity: sensor.rte_tempo_cycle_jours_restants_blanc
+        name: Jours Blancs
+        icon: mdi:circle
+      - entity: sensor.rte_tempo_cycle_jours_restants_rouge
+        name: Jours Rouges
+        icon: mdi:circle
