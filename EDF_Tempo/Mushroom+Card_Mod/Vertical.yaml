@@ -62,7 +62,7 @@ cards:
         card_mod:
           style: >-
             ha-card { --chip-border-color: #2193b0; --chip-background: rgba(33,
-            147, 176, 0.1); }
+            147, 176, 0.2); }
       - type: template
         content: "{{ states('sensor.rte_tempo_cycle_jours_restants_blanc') }}/43"
         icon: mdi:circle
@@ -70,7 +70,7 @@ cards:
         card_mod:
           style: >-
             ha-card { --chip-border-color: #e0e0e0; --chip-background: rgba(245,
-            245, 245, 0.3); }
+            245, 245, 0.2); }
       - type: template
         content: "{{ states('sensor.rte_tempo_cycle_jours_restants_rouge') }}/22"
         icon: mdi:circle
@@ -78,4 +78,4 @@ cards:
         card_mod:
           style: >-
             ha-card { --chip-border-color: #ff5f6d; --chip-background: rgba(255,
-            95, 109, 0.1); }
+            95, 109, 0.2); }
