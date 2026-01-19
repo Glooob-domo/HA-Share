@@ -84,22 +84,22 @@ cards:
         icon: mdi:circle
         icon_color: blue
         card_mod:
-          style: >
-            ha-card { --chip-background: rgba(33, 147, 176, 0.2); border: none;
-            }
+          style: >-
+            ha-card { --chip-border-color: #2193b0; --chip-background: rgba(33,
+            147, 176, 0.2); }
       - type: template
         content: "{{ states('sensor.rte_tempo_cycle_jours_restants_blanc') }}/43"
         icon: mdi:circle
-        icon_color: "#d0d0d0"
+        icon_color: "#bdbdbd"
         card_mod:
-          style: >
-            ha-card { --chip-background: rgba(255, 255, 255, 0.2); border: none;
-            }
+          style: >-
+            ha-card { --chip-border-color: #e0e0e0; --chip-background: rgba(245,
+            245, 245, 0.2); }
       - type: template
         content: "{{ states('sensor.rte_tempo_cycle_jours_restants_rouge') }}/22"
         icon: mdi:circle
         icon_color: red
         card_mod:
-          style: >
-            ha-card { --chip-background: rgba(255, 95, 109, 0.2); border: none;
-            }
+          style: >-
+            ha-card { --chip-border-color: #ff5f6d; --chip-background: rgba(255,
+            95, 109, 0.2); }
