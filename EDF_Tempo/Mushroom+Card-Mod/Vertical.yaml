@@ -1,0 +1,81 @@
+type: vertical-stack
+cards:
+  - type: custom:mushroom-template-card
+    primary: "Aujourd'hui : {{ states('sensor.rte_tempo_couleur_actuelle') }}"
+    secondary: "Prix : {{ states('sensor.tarif_actuel_tempo_6kva_ttc') }} €/kWh"
+    icon: mdi:lightning-bolt
+    entity: sensor.rte_tempo_couleur_actuelle
+    features_position: bottom
+    card_mod:
+      style: |
+        ha-card {
+          border-radius: 12px;
+          {% set color = states('sensor.rte_tempo_couleur_actuelle') %}
+          {% if color == 'Rouge' %}
+            background: linear-gradient(135deg, #ff5f6d 0%, #b91d1d 100%);
+          {% elif color == 'Blanc' %}
+            background: linear-gradient(135deg, #ffffff 0%, #d7e1ec 100%);
+            --primary-text-color: #2c3e50;
+            --secondary-text-color: #546e7a;
+          {% else %}
+            background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);
+          {% endif %}
+        }
+        ha-state-icon, .primary, .secondary {
+          color: {{ 'white' if states('sensor.rte_tempo_couleur_actuelle') != 'Blanc' else '#2c3e50' }} !important;
+        }
+  - type: custom:mushroom-template-card
+    primary: "Demain : {{ states('sensor.rte_tempo_prochaine_couleur') }}"
+    secondary: >-
+      {% set demain = states('sensor.rte_tempo_prochaine_couleur') %} {{
+      'Préparez-vous !' if demain != 'inconnu' else 'En attente de RTE...'
+      }}
+    icon: mdi:calendar-arrow-right
+    entity: sensor.rte_tempo_prochaine_couleur
+    features_position: bottom
+    card_mod:
+      style: |
+        ha-card {
+          border-radius: 12px;
+          {% set color = states('sensor.rte_tempo_prochaine_couleur') %}
+          {% if color == 'Rouge' %}
+            background: linear-gradient(135deg, #ff5f6d 0%, #b91d1d 100%);
+          {% elif color == 'Blanc' %}
+            background: linear-gradient(135deg, #ffffff 0%, #d7e1ec 100%);
+            --primary-text-color: #2c3e50;
+          {% elif color == 'Bleu' %}
+            background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);
+          {% else %}
+            background: var(--card-background-color);
+          {% endif %}
+        }
+        ha-state-icon, .primary, .secondary {
+          color: {{ 'white' if states('sensor.rte_tempo_prochaine_couleur') in ['Rouge','Bleu'] else '#2c3e50' }} !important;
+        }
+  - type: custom:mushroom-chips-card
+    alignment: center
+    chips:
+      - type: template
+        content: "{{ states('sensor.rte_tempo_cycle_jours_restants_bleu') }}/300"
+        icon: mdi:circle
+        icon_color: blue
+        card_mod:
+          style: >-
+            ha-card { --chip-border-color: #2193b0; --chip-background: rgba(33,
+            147, 176, 0.1); }
+      - type: template
+        content: "{{ states('sensor.rte_tempo_cycle_jours_restants_blanc') }}/43"
+        icon: mdi:circle
+        icon_color: "#bdbdbd"
+        card_mod:
+          style: >-
+            ha-card { --chip-border-color: #e0e0e0; --chip-background: rgba(245,
+            245, 245, 0.3); }
+      - type: template
+        content: "{{ states('sensor.rte_tempo_cycle_jours_restants_rouge') }}/22"
+        icon: mdi:circle
+        icon_color: red
+        card_mod:
+          style: >-
+            ha-card { --chip-border-color: #ff5f6d; --chip-background: rgba(255,
+            95, 109, 0.1); }
