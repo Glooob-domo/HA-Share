@@ -1,0 +1,120 @@
+type: custom:stack-in-card
+mode: vertical
+keep:
+  background: true
+  box_shadow: true
+  margin: false
+  outer_padding: true
+  border_radius: true
+cards:
+  - type: custom:mushroom-template-card
+    primary: "Aujourd'hui : {{ states('sensor.rte_tempo_couleur_actuelle') }}"
+    secondary: "Prix actuel : {{ states('sensor.tarif_actuel_tempo_6kva_ttc') }} €/kWh"
+    icon: mdi:lightning-bolt
+    icon_color: white
+    layout: horizontal
+    multiline_secondary: true
+    tap_action:
+      action: more-info
+    entity: sensor.rte_tempo_couleur_actuelle
+    card_mod:
+      style: |
+        ha-card {
+          border: none;
+          /* Gestion dynamique de la couleur de fond */
+          {% set color = states('sensor.rte_tempo_couleur_actuelle') %}
+          {% if color == 'Rouge' %}
+            background: linear-gradient(135deg, #ff5f6d 0%, #b91d1d 100%);
+          {% elif color == 'Blanc' %}
+            background: linear-gradient(135deg, #ffffff 0%, #d7e1ec 100%);
+            color: #2c3e50 !important;
+            --primary-text-color: #2c3e50;
+          {% else %}
+            background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);
+          {% endif %}
+          box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+          border-radius: 15px;
+        }
+        /* Style des textes et icones */
+        ha-state-icon, .primary, .secondary {
+          {% if states('sensor.rte_tempo_couleur_actuelle') == 'Blanc' %}
+            filter: none;
+            color: #2c3e50 !important;
+          {% else %}
+            filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));
+            color: white !important;
+          {% endif %}
+        }
+  - type: custom:mushroom-template-card
+    primary: "Demain : {{ states('sensor.rte_tempo_prochaine_couleur') }}"
+    secondary: >-
+      {% set demain = states('sensor.rte_tempo_prochaine_couleur') %} {% if
+      demain == 'Indisponible' %}
+        En attente de RTE...
+      {% else %}
+        Préparez-vous !
+      {% endif %}
+    icon: mdi:calendar-arrow-right
+    layout: horizontal
+    entity: sensor.rte_tempo_prochaine_couleur
+    icon_color: >-
+      {% set demain = states('sensor.rte_tempo_prochaine_couleur') %} {% if
+      demain == 'Rouge' %} red {% elif demain == 'Blanc' %} grey {% elif demain
+      == 'Bleu' %} blue {% else %} disabled {% endif %}
+    card_mod:
+      style: |
+        ha-card {
+          border: none;
+          /* Gestion dynamique de la couleur de fond */
+          {% set color = states('sensor.rte_tempo_prochaine_couleur') %}
+          {% if color == 'Rouge' %}
+            background: linear-gradient(135deg, #ff5f6d 0%, #b91d1d 100%);
+          {% elif color == 'Blanc' %}
+            background: linear-gradient(135deg, #ffffff 0%, #d7e1ec 100%);
+            color: #2c3e50 !important;
+            --primary-text-color: #2c3e50;
+          {% else %}
+            background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);
+          {% endif %}
+          box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+          border-radius: 15px;
+        }
+        ha-state-icon, .primary, .secondary {
+          {% if states('sensor.rte_tempo_prochaine_couleur') == 'Blanc' %}
+            filter: none;
+            color: #2c3e50 !important;
+          {% else %}
+            filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));
+            color: white !important;
+          {% endif %}
+        }
+  - type: custom:mushroom-chips-card
+    alignment: center
+    chips:
+      - type: template
+        content: "{{ states('sensor.rte_tempo_cycle_jours_restants_bleu') }}/300"
+        icon: mdi:circle
+        icon_color: blue
+        card_mod:
+          style: |
+            ha-card {
+              --chip-background: rgba(33, 147, 176, 0.2);
+            }
+      - type: template
+        content: "{{ states('sensor.rte_tempo_cycle_jours_restants_blanc') }}/43"
+        icon: mdi:circle
+        icon_color: "#d0d0d0"
+        card_mod:
+          style: |
+            ha-card {
+              --chip-background: rgba(255, 255, 255, 0.2);
+            }
+      - type: template
+        content: "{{ states('sensor.rte_tempo_cycle_jours_restants_rouge') }}/22"
+        icon: mdi:circle
+        icon_color: red
+        card_mod:
+          style: |
+            ha-card {
+              --chip-background: rgba(255, 95, 109, 0.2);
+            }
