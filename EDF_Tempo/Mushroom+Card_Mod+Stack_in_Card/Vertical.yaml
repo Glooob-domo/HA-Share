@@ -20,8 +20,6 @@ cards:
     card_mod:
       style: |
         ha-card {
-          border: none;
-          /* Gestion dynamique de la couleur de fond */
           {% set color = states('sensor.rte_tempo_couleur_actuelle') %}
           {% if color == 'Rouge' %}
             background: linear-gradient(135deg, #ff5f6d 0%, #b91d1d 100%);
@@ -32,7 +30,6 @@ cards:
           {% else %}
             background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);
           {% endif %}
-          box-shadow: 0 4px 15px rgba(0,0,0,0.2);
           border-radius: 15px;
         }
         /* Style des textes et icones */
@@ -49,7 +46,7 @@ cards:
     primary: "Demain : {{ states('sensor.rte_tempo_prochaine_couleur') }}"
     secondary: >-
       {% set demain = states('sensor.rte_tempo_prochaine_couleur') %} {% if
-      demain == 'Indisponible' %}
+      demain == 'inconnu' %}
         En attente de RTE...
       {% else %}
         Préparez-vous !
@@ -64,8 +61,6 @@ cards:
     card_mod:
       style: |
         ha-card {
-          border: none;
-          /* Gestion dynamique de la couleur de fond */
           {% set color = states('sensor.rte_tempo_prochaine_couleur') %}
           {% if color == 'Rouge' %}
             background: linear-gradient(135deg, #ff5f6d 0%, #b91d1d 100%);
@@ -73,11 +68,12 @@ cards:
             background: linear-gradient(135deg, #ffffff 0%, #d7e1ec 100%);
             color: #2c3e50 !important;
             --primary-text-color: #2c3e50;
-          {% else %}
+          {% elif color == 'Bleu' %}
             background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);
+          {% else %}
+            background: var(--card-background-color);
           {% endif %}
-          box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-          border-radius: 15px;
+          border-radius: 12px;
         }
         ha-state-icon, .primary, .secondary {
           {% if states('sensor.rte_tempo_prochaine_couleur') == 'Blanc' %}
@@ -96,25 +92,22 @@ cards:
         icon: mdi:circle
         icon_color: blue
         card_mod:
-          style: |
-            ha-card {
-              --chip-background: rgba(33, 147, 176, 0.2);
-            }
+          style: >-
+            ha-card { --chip-border-color: #2193b0; --chip-background: rgba(33,
+            147, 176, 0.2); }
       - type: template
         content: "{{ states('sensor.rte_tempo_cycle_jours_restants_blanc') }}/43"
         icon: mdi:circle
-        icon_color: "#d0d0d0"
+        icon_color: "#bdbdbd"
         card_mod:
-          style: |
-            ha-card {
-              --chip-background: rgba(255, 255, 255, 0.2);
-            }
+          style: >-
+            ha-card { --chip-border-color: #e0e0e0; --chip-background: rgba(245,
+            245, 245, 0.2); }
       - type: template
         content: "{{ states('sensor.rte_tempo_cycle_jours_restants_rouge') }}/22"
         icon: mdi:circle
         icon_color: red
         card_mod:
-          style: |
-            ha-card {
-              --chip-background: rgba(255, 95, 109, 0.2);
-            }
+          style: >-
+            ha-card { --chip-border-color: #ff5f6d; --chip-background: rgba(255,
+            95, 109, 0.2); }
