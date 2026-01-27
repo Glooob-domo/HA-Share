@@ -1,0 +1,38 @@
+
+------------------------------------------------
+
+# Code a copier dans le fichier configuration.yaml par catégorie :
+
+google_assistant:
+  project_id: VOTRE_ID_PROJET
+  report_state: true
+  service_account: !include google-ha.json
+  exposed_domains:
+    - light
+    - switch
+    - climate
+    - sensor
+    # ajoutez vos catégories ici...
+
+------------------------------------------------
+
+# Code a copier dans le fichier configuration.yaml par entité :
+
+google_assistant:
+  project_id: VOTRE_ID_PROJET
+  report_state: true
+  service_account: !include google-ha.json
+  expose_by_default: false
+  entity_config:
+    # Copiez vos entités a partir d'ici !
+
+  
+------------------------------------------------
+
+# Code a copier dans Outils de développement > Modèles :
+
+Liste d'entité à copier (avec l'indentation !): 
+{% for state in states.light %}
+    {{ state.entity_id }}:
+      expose: true
+{%- endfor %}
