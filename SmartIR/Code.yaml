@@ -1,0 +1,30 @@
+# Code à noter une seule fois ! 
+smartir:
+  check_updates: false
+
+# Exemple de code pour l'ajout d'un SmartIR
+climate:
+  - platform: smartir
+    name: Climatisation Salon
+    unique_id: clim_salon # Pas de Majuscule, ni d'espace
+    device_code: 1285
+    controller_data: remote.broadlink_rm4_pro
+    temperature_sensor: sensor.thermometre_salon_temperature
+    humidity_sensor: sensor.thermometre_salon_humidity
+
+# Exemple de code pour l'ajout de plusieurs SmartIR
+climate:
+  - platform: smartir
+    name: Climatisation Salon
+    unique_id: clim_salon # Pas de Majuscule, ni d'espace
+    device_code: 1285
+    controller_data: remote.broadlink_rm4_pro
+    temperature_sensor: sensor.thermometre_salon_temperature
+    humidity_sensor: sensor.thermometre_salon_humidity
+  - platform: smartir
+    name: Climatisation Cuisine
+    unique_id: clim_cuisine # Doit etre unique !
+    device_code: 1285
+    controller_data: remote.broadlink_rm4_pro
+    temperature_sensor: sensor.thermometre_cuisine_temperature
+    humidity_sensor: sensor.thermometre_cuisine_humidity
