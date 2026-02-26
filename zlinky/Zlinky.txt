@@ -1,23 +1,23 @@
 ID (zlinky_...)        TEMPO 	                      HC / HP	                    BASE
 
-easf01	       	  ✅ Tempo Bleu HC               ✅ Heures Creuses	            ❌ Désact.
-easf02	          ✅ Tempo Bleu HP               ✅ Heures Pleines	            ❌ Désact.
+easf01	       	  ✅ Tempo Bleu HC               ✅ Heures Creuses	          ❌ Désact.
+easf02	          ✅ Tempo Bleu HP               ✅ Heures Pleines	          ❌ Désact.
 easf03	          ✅ Tempo Blanc HC              ❌ Désact.	                  ❌ Désact.
 easf04	          ✅ Tempo Blanc HP              ❌ Désact.	                  ❌ Désact.
 easf05	          ✅ Tempo Rouge HC              ❌ Désact.	                  ❌ Désact.
 easf06	          ✅ Tempo Rouge HP              ❌ Désact.	                  ❌ Désact.
-east	            ✅ Énergie Totale Consommée    ✅ Énergie Totale	Consommée   ✅ Énergie Totale Consommée
-sinsts	          ✅ Puissance Instantanée       ✅ Puissance Instantanée	    ✅ Puissance Instantanée
-current_tarif	    ✅ Couleur du Jour             ❌ Désact.	                  ❌ Désact.
-current_price		  ✅ Période Tarifaire           ✅ Période Tarifaire	        ❌ Désact.
-irms1		          ✅ Courant                     ✅ Courant	                  ✅ Courant
-urms1		          ✅ Tension Efficace            ✅ Tension	                  ✅ Tension
+east	          ✅ Énergie Totale Consommée    ✅ Énergie Totale	Consommée ✅ Énergie Totale Consommée
+sinsts	          ✅ Puissance Instantanée       ✅ Puissance Instantanée	  ✅ Puissance Instantanée
+current_tarif	  ✅ Couleur du Jour             ❌ Désact.	                  ❌ Désact.
+current_price	  ✅ Période Tarifaire           ✅ Période Tarifaire	      ❌ Désact.
+irms1		      ✅ Courant                     ✅ Courant	                  ✅ Courant
+urms1	          ✅ Tension Efficace            ✅ Tension	                  ✅ Tension
 umoy1             ✅ Tension Moyenne             ✅ Tension Moyenne            ✅ Tension Moyenne
-smaxsn		        ✅ Puis. Max (Jour)            ✅ Puis. Max (Jour)	          ✅ Puis. Max (Jour)
-pcoup		          ✅ Puis. Coupure               ✅ Puis. Coupure	            ✅ Puis. Coupure
-relais		        ✅ État Relais                 ✅ État Relais	              ✅ État Relais
-update.zlinky	  	✅ Mise à jour OTA             ✅ Mise à jour OTA	          ✅ Mise à jour OTA
-last_seen	       	✅ Dernier signal              ✅ Dernier signal	            ✅ Dernier signal
+smaxsn		      ✅ Puis. Max (Jour)            ✅ Puis. Max (Jour)	          ✅ Puis. Max (Jour)
+pcoup		      ✅ Puis. Coupure               ✅ Puis. Coupure	          ✅ Puis. Coupure
+relais		      ✅ État Relais                 ✅ État Relais	              ✅ État Relais
+update.zlinky	  ✅ Mise à jour OTA             ✅ Mise à jour OTA	          ✅ Mise à jour OTA
+last_seen		  ✅ Dernier signal              ✅ Dernier signal	          ✅ Dernier signal
 
 A DESACTIVER 
 
