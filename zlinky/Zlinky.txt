@@ -6,7 +6,7 @@ easf03	          ✅ Tempo Blanc HC              ❌ Désact.                   
 easf04	          ✅ Tempo Blanc HP              ❌ Désact.                    ❌ Désact.
 easf05	          ✅ Tempo Rouge HC              ❌ Désact.                    ❌ Désact.
 easf06	          ✅ Tempo Rouge HP              ❌ Désact.                    ❌ Désact.
-east	            ✅ Énergie Totale Consommée    ✅ Énergie Totale Consommée   ✅ Énergie Totale Consommée
+east              ✅ Énergie Totale Consommée    ✅ Énergie Totale Consommée   ✅ Énergie Totale Consommée
 sinsts	          ✅ Puissance Instantanée       ✅ Puissance Instantanée      ✅ Puissance Instantanée
 current_tarif	    ✅ Couleur du Jour             ❌ Désact.                    ❌ Désact.
 current_price	    ✅ Période Tarifaire           ✅ Période Tarifaire          ❌ Désact.
