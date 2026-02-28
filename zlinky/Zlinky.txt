@@ -30,3 +30,7 @@ A DESACTIVER
 ❌ STGE (Registre d'état), 
 ❌ MSG1 & MSG2 (Messages Linky souvent vides), 
 ❌ PREF (Puissance de référence).
+❌ CURRENT_DATE (Date de dernière MAJ...).
+❌ STATUS_REGISTER
+❌ SITE_ID
+❌ smaxsn (Puis. Max Jour-1)
