@@ -19,6 +19,12 @@ relais	          ✅ État Relais                 ✅ État Relais              
 update.zlinky     ✅ Mise à jour OTA             ✅ Mise à jour OTA            ✅ Mise à jour OTA
 last_seen         ✅ Dernier signal              ✅ Dernier signal             ✅ Dernier signal
 
+TRIPHASE 
+sinsts	          ✅ Puissance Instantanée Totale
+sinsts1	          ✅ Puissance Instantanée Phase 1
+sinsts2	          ✅ Puissance Instantanée Phase 2
+sinsts3	          ✅ Puissance Instantanée Phase 3
+
 A DESACTIVER 
 
 ❌ ADSC (Numéro de série), 
