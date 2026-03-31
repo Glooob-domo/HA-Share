@@ -39,4 +39,4 @@ A DESACTIVER
 ❌ CURRENT_DATE (Date de dernière MAJ...).
 ❌ STATUS_REGISTER
 ❌ SITE_ID
-❌ smaxsn (Puis. Max Jour-1)
+❌ smaxsn_1 (Puis. Max Jour-1)
