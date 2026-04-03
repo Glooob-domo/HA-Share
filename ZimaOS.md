@@ -28,8 +28,8 @@ Copiez et collez le code ci-dessous dans l'éditeur. **Attention :** Pensez à r
 
 ```
 <hostdevmode='subsystem'type='usb'>
-<source>
-  <vendorid='0x1a86'/>
+  <source>
+    <vendorid='0x1a86'/>
     <productid='0x55d4'/>
   </source>
 </hostdev>
