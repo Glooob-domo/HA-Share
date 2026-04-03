@@ -2,7 +2,7 @@
 Voici l'ensemble des commandes nécessaires pour transférer votre Dongle USB Zigbee vers votre Machine Virtuelle Home Assistant et activer le démarrage automatique.
 
 ## Étape 1 : Identifier votre Dongle USB
-Une fois connecté en SSH sur votre ZimaOS et passé en mode administrateur (`sudo -i`), tapez la commande suivante pour lister les périphériques USB :
+Une fois connecté en SSH sur votre ZimaOS, tapez la commande suivante pour lister les périphériques USB :
 
 ```
 lsusb
@@ -11,6 +11,13 @@ lsusb
 Repérez la ligne correspondant à votre dongle Zigbee (ex: Sonoff, SkyConnect) et notez l'ID (les deux suites de 4 caractères séparées par deux points, par exemple `1a86:55d4`).
 
 ## Étape 2 : Créer le fichier de configuration XML
+
+On passe en mode administrateur
+
+```
+sudo -i
+```
+
 Nous allons créer un fichier pour indiquer à ZimaOS comment gérer ce périphérique.
 
 ```
