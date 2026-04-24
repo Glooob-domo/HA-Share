@@ -1,0 +1,45 @@
+type: custom:auto-entities
+filter:
+  include:
+    - entity_id: sensor.station*
+  exclude:
+    - state: unknown
+    - state: unavailable
+sort:
+  method: state
+  numeric: true
+  count: 5
+card:
+  type: custom:flex-table-card
+  clickable: true
+  card_mod:
+    style: |
+      ha-card { border-radius: 15px !important; overflow: hidden; }
+      #flextbl { font-size: 12px !important; }
+      th { font-size: 13px !important; }
+  columns:
+    - name: Logo
+      data: entity_picture
+      align: center
+      modify: "'<img src=\"' + x + '\"style=\"height: 30px\">'"
+    - name: Station
+      data: name
+      align: left
+      modify: x.replace(/^Station\s+/i, "")
+    - name: Dist.
+      data: distance
+      align: center
+      modify: parseFloat(x).toFixed(1)
+      suffix: " km"
+    - name: Prix
+      data: state
+      align: center
+      suffix: " €"
+    - name: MAJ
+      data: days_since_last_update
+      align: center
+      prefix: J+
+  css:
+    tbody tr:nth-child(1): "color: #4CAF50; font-weight: bold;"
+    tbody tr:nth-child(2): "color: #8BC34A;"
+    tbody tr:nth-child(3): "color: #FFEB3B;"
