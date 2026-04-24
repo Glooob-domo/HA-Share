@@ -1,0 +1,22 @@
+type: custom:auto-entities
+card:
+  type: map
+  aspect_ratio: 16:9
+  default_zoom: 12
+  card_mod:
+    style:
+      ha-map $:
+        "ha-entity-marker":
+          $: |
+            .marker {
+              font-size: 11px !important;
+              line-height: 1.2 !important;
+            }
+filter:
+  include:
+    - entity_id: "sensor.station*"
+      options:
+        label_mode: state
+  exclude:
+    - state: "unknown"
+    - state: "unavailable"
