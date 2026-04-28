@@ -1,0 +1,67 @@
+type: vertical-stack
+cards:
+  - type: entities
+    entities:
+      - entity: input_select.choix_carburant
+        name: Quel carburant afficher ?
+        icon: mdi:gas-station
+      - entity: input_boolean.afficher_toutes_les_stations
+        name: 🔽 Tout afficher (Défaut Top 5)
+        icon: mdi:format-list-bulleted
+  - type: custom:auto-entities
+    card:
+      type: custom:flex-table-card
+      clickable: true
+      card_mod:
+        style: |
+          #flextbl {
+            font-size: 12px !important; /* Pour écrire plus petit */
+          }
+          th {
+            font-size: 13px !important;
+          }
+      columns:
+        - name: Logo
+          data: entity_picture
+          align: center
+          modify: "'<img src=\"' + x + '\"style=\"height: 35px\">'"
+        - name: Station
+          data: name
+          align: left
+          modify: x.replace(/^Station\s+/i, "").replace(/\s+\S+$/, "")
+        - name: Dist.
+          data: distance
+          align: center
+          modify: parseFloat(x).toFixed(1)
+          suffix: " km"
+        - name: Prix
+          data: state
+          align: center
+          suffix: " €"
+        - name: MAJ Prix
+          data: days_since_last_update
+          align: center
+          prefix: J+
+        - name: GPS
+          data: attributes
+          align: center
+          modify: >-
+            (x.latitude && x.longitude) ? '<a href="https://waze.com/ul?ll=' + x.latitude + ',' + x.longitude + '&navigate=yes" target="_blank" style="text-decoration: none; font-size: 18px;">🚘</a>' : ''
+      css:
+        tbody tr:nth-child(1): "color: #4CAF50; font-weight: bold;"
+        tbody tr:nth-child(2): "color: #8BC34A;"
+        tbody tr:nth-child(3): "color: #FFEB3B;"
+    filter:
+      template: >
+        {% set fuel = states('input_select.choix_carburant') | lower %}  {% set
+        show_all = is_state('input_boolean.afficher_toutes_les_stations', 'on')
+        %}  {% set limit = 999 if show_all else 5 %}  {% set ns =
+        namespace(count=0) %}  [  {% for state in states.sensor 
+          | selectattr('entity_id', 'match', '^sensor\.station_.*_' ~ fuel ~ '$') 
+          | rejectattr('state', 'in', ['unknown', 'unavailable', '']) 
+          | sort(attribute='state') %}
+          {% if ns.count < limit %}
+            "{{ state.entity_id }}",
+            {% set ns.count = ns.count + 1 %}
+          {% endif %}
+        {% endfor %}  ]
