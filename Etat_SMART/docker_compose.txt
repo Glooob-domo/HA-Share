@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  scrutiny-nas:
+    image: ghcr.io/analogj/scrutiny:master-omnibus
+    container_name: scrutiny-full-nas
+    privileged: true # Indispensable pour accéder aux disques du NAS
+    cap_add:
+      - SYS_RAWIO
+    ports:
+      - "38080:8080" # Accès via http://IP_DU_NAS:38080
+    volumes:
+      - /run/udev:/run/udev:ro
+      - ./config:/opt/scrutiny/config
+      - ./influxdb:/opt/scrutiny/influxdb
+    restart: unless-stopped
