@@ -1,0 +1,24 @@
+alias: Alerte Santé Disques
+description: ""
+triggers:
+  - entity_id:
+      - sensor.hdd_2to_smart_test_result_3
+      - sensor.nvme_128_go_smart_test_result
+    trigger: state
+conditions:
+  - condition: template
+    value_template: >-
+      {{ trigger.to_state.state != 'Passed' and trigger.to_state.state not in
+      ['Unknown', 'Unavailable'] }}
+actions:
+  - action: notify.send_message
+    metadata: {}
+    target:
+      entity_id: notify.oneplus_10pro
+    data:
+      message: >-
+        Attention ! Le capteur "{{ trigger.to_state.name }}" vient de détecter
+        une anomalie. Nouvel état : {{ trigger.to_state.state }}     
+        Vérifiez vos disques immédiatement.
+      title: ⚠️ ALERTE DISQUE SERVEUR
+mode: single
