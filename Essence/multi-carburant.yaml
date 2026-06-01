@@ -54,15 +54,21 @@ cards:
         tbody tr:nth-child(3): "color: #FFEB3B;"
     filter:
       template: >
-        {% set fuel = states('input_select.choix_carburant') | lower %}  {% set
-        show_all = is_state('input_boolean.afficher_toutes_les_stations', 'on')
-        %}  {% set limit = 999 if show_all else 5 %}  {% set ns =
-        namespace(count=0) %}  [  {% for state in states.sensor 
+        {% set fuel = states('input_select.choix_carburant') | lower %} 
+        {% set show_all = is_state('input_boolean.afficher_toutes_les_stations', 'on') %} 
+        {% set limit = 999 if show_all else 5 %} 
+        {% set ns = namespace(count=0) %} 
+        [ 
+        {% for state in states.sensor 
           | selectattr('entity_id', 'match', '^sensor\.station_.*_' ~ fuel ~ '$') 
           | rejectattr('state', 'in', ['unknown', 'unavailable', '']) 
           | sort(attribute='state') %}
-          {% if ns.count < limit %}
-            "{{ state.entity_id }}",
-            {% set ns.count = ns.count + 1 %}
+          {% set shortage = state.attributes.get('shortage_since') %}
+          {% if shortage in [none, 'null', 'None', ''] %}
+            {% if ns.count < limit %}
+              "{{ state.entity_id }}",
+              {% set ns.count = ns.count + 1 %}
+            {% endif %}
           {% endif %}
-        {% endfor %}  ]
+        {% endfor %} 
+        ]
