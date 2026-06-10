@@ -1,0 +1,106 @@
+alias: Alarme - Armement auto au départ
+description: Armement automatique de l'alarme en fonction de l'état de la porte
+triggers:
+  - entity_id: zone.home
+    below: 1
+    for:
+      minutes: 2
+    trigger: numeric_state
+    note: >-
+      👉 À ADAPTER : C'est le déclencheur. Il s'active quand la zone 'maison'
+      est vide depuis 2 minutes. Vérifiez que 'zone.home' est bien le nom de
+      votre zone !
+conditions: []
+actions:
+  - note: >-
+      On adapte la logique selon que la porte a bien été fermée à clé ou non
+      lors  du départ. L'ordre des conditions ci-dessous est très important !
+    choose:
+      - conditions:
+          - condition: door.is_open
+            target:
+              entity_id: binary_sensor.entree_door_sensor
+            options:
+              behavior: any
+              for: "00:00:00"
+        sequence:
+          - action: notify.send_message
+            target:
+              entity_id: notify.oneplus_10pro
+            data:
+              title: ALERTE ! 🚪
+              message: La porte n'est pas fermée...
+            note: >-
+              🚨 À MODIFIER : Remplacez 'notify.oneplus_10pro' par l'entité de
+              notification  de votre propre smartphone pour recevoir l'alerte de
+              porte ouverte.
+      - conditions:
+          - condition: lock.is_locked
+            target:
+              entity_id: lock.entree
+            options:
+              behavior: any
+              for: "00:00:00"
+            note: "Vérification : La serrure connectée est bien verrouillée."
+        sequence:
+          - action: alarm_control_panel.alarm_arm_away
+            target:
+              entity_id: alarm_control_panel.somfy_home_alarm_maison
+            note: >-
+              🚨 À MODIFIER : Remplacez l'entité Somfy par celle de votre propre
+              alarme.  Action : Tout est sécurisé, on arme immédiatement en mode
+              absence.
+            data: {}
+      - conditions:
+          - condition: lock.is_unlocked
+            target:
+              entity_id: lock.entree
+            options:
+              behavior: any
+              for: "00:00:00"
+            note: >-
+              Cas critique : La maison est vide mais la porte n'est pas
+              verrouillée.
+        sequence:
+          - action: notify.mobile_app_oneplus_10pro
+            data:
+              title: ⚠️ Oubli de porte !
+              message: La maison est vide mais la porte n'est pas verrouillée.
+              data:
+                actions:
+                  - action: VERROUILLER_ET_ARMER
+                    title: 🔒 Verrouiller et Armer
+            note: >-
+              🚨 À MODIFIER : N'oubliez pas de mettre le nom de l'application de
+              VOTRE  téléphone ici (ex: notify.mobile_app_mon_iphone).
+          - wait_for_trigger:
+              - event_type: mobile_app_notification_action
+                event_data:
+                  action: VERROUILLER_ET_ARMER
+                trigger: event
+            timeout:
+              minutes: 15
+            continue_on_timeout: false
+            note: >-
+              Attente : On vous laisse 15 minutes max pour cliquer sur le bouton
+              d'action.
+          - action: lock.lock
+            target:
+              entity_id: lock.entree
+            note: >-
+              🚨 À MODIFIER : Mettez ici l'entité de votre propre serrure
+              connectée.  Action : On lance le verrouillage à distance suite à votre clic.
+            data: {}
+          - delay:
+              seconds: 5
+            note: >-
+              On laisse 5 secondes au moteur de la serrure pour 
+              faire son cycle complet avant d'armer l'alarme.
+          - action: alarm_control_panel.alarm_arm_away
+            target:
+              entity_id: alarm_control_panel.somfy_home_alarm_maison
+            note: >-
+              🚨 À MODIFIER : Remplacez par votre entité d'alarme.  Action
+              finale : La porte est verrouillée, l'alarme s'active sereinement.
+            data: {}
+mode: restart
