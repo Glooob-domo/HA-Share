@@ -1,0 +1,43 @@
+Pour augmenter la taille de votre historique : 
+dans configuration.yaml
+
+recorder:
+  purge_keep_days: 21
+
+
+Code YAML pour l'automatisation avec l'alarme :
+
+alias: Sécurité - Gestion Simulation de Présence
+triggers:
+  - trigger: alarm_control_panel.disarmed
+    target:
+      entity_id: alarm_control_panel.somfy_home_alarm_maison
+    options:
+      for: "00:00:00"
+    id: maison_occupee
+  - trigger: alarm_control_panel.armed
+    target:
+      entity_id: alarm_control_panel.somfy_home_alarm_maison
+    options:
+      for: "00:00:00"
+    id: maison_vide
+conditions: []
+actions:
+  - choose:
+      - conditions:
+          - condition: trigger
+            id: maison_vide
+        sequence:
+          - action: switch.turn_on
+            target:
+              entity_id: switch.vacances
+            data: {}
+      - conditions:
+          - condition: trigger
+            id: maison_occupee
+        sequence:
+          - action: switch.turn_off
+            target:
+              entity_id: switch.vacances
+            data: {}
+mode: single
