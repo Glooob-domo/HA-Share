@@ -1,4 +1,4 @@
-A ajouter dans configuration.yaml
+!!!! NE PLUS AJOUTER CE PARAGRAPHES DANS LE FICHIER configuration.yaml !!!!!
 
 http:
   use_x_forwarded_for: true
@@ -6,3 +6,12 @@ http:
     - 172.30.33.0/24
   ip_ban_enabled: true
   login_attempts_threshold: 3 # Bannit après 3 échecs
+
+!!!! NE PLUS AJOUTER CE PARAGRAPHES DANS LE FICHIER configuration.yaml !!!!!
+
+Il suffit désormais d'aller dans Parametres, Système puis Réseau
+Allez dans la partie HTTP puis ouvrez "Proxy Inverse"
+Cochez la case : Faire confiance à X-Forwarded-For
+et notez 172.30.33.0/24 dans la case "Proxies de confiance"
+
+Pour le bloquage d'adresse IP, c'est dans le menu bloquage d'adresse IP :-)
